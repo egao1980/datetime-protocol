@@ -5,7 +5,7 @@ Lispy **CLOS** date/time protocol for [cl-stack](https://github.com/egao1980/cl-
 | System | Nick | Role |
 |--------|------|------|
 | `datetime-protocol` | `stack-datetime` | `instant`/`duration`/`period`/`date`/`moment`/`zoned-moment`, chronology, clock, time zone, ISO 8601/RFC 3339/RFC 7231 |
-| `datetime-protocol/calendars` | — | Easter computus (Western/Orthodox), Hebrew, and tabular Islamic calendars |
+| `datetime-protocol/calendars` | — | Easter, Hebrew, Islamic; solar astronomy; Chinese lunisolar; Jewish/Muslim sunrise–sunset ritual times |
 
 **Not here:** IANA zone data itself → [`cl-stack-tzdata`](https://github.com/egao1980/cl-stack-tzdata) (soft dependency, loaded automatically when present).
 

@@ -223,6 +223,62 @@
    #:islamic-date-to-rd
    #:islamic-date-from-date
    #:islamic-leap-year-p
-   #:islamic-year-length))
+   #:islamic-year-length
 
+   ;; astronomy (Meeus) / locations / Chinese lunisolar
+   #:astro-location
+   #:astro-location-p
+   #:make-astro-location
+   #:location
+   #:location-latitude
+   #:location-longitude
+   #:location-elevation
+   #:location-zone
+   #:location-name
+   #:+beijing+
+   #:+tokyo+
+   #:+delhi+
+   #:+ujjain+
+   #:+jerusalem+
+   #:+mecca+
+   #:standard-from-universal
+   #:universal-from-standard
+   #:civil-date-at
+   #:solar-longitude
+   #:solar-longitude-after
+   #:solar-longitude-date
+   #:solar-declination
+   #:equation-of-time
+   #:spring-equinox-date
+   #:autumn-equinox-date
+   #:qingming-date
+   #:sunrise
+   #:sunset
+   #:dawn
+   #:dusk
+   #:midday-ut
+   #:+jewish-dusk-vilna+
+   #:+jewish-dusk-8.5+
+   #:+islamic-fajr-angle-mwl+
+   #:+islamic-fajr-angle-egypt+
+   #:+islamic-fajr-angle-isna+
+   #:jewish-sunset
+   #:jewish-nightfall
+   #:jewish-day-begins
+   #:jewish-shabbat-interval
+   #:jewish-melacha-forbidden-p
+   #:islamic-maghrib
+   #:islamic-fajr
+   #:islamic-isha
+   #:islamic-fasting-interval
+   #:islamic-fasting-p
+   #:nth-new-moon
+   #:new-moon-at-or-after
+   #:new-moon-before
+   #:chinese-new-year-date
+   #:chinese-new-year-eve-date
+   #:chinese-new-year-rd
+   #:chinese-lunar-date
+   #:duanwu-date
+   #:zhongqiu-date))
 (in-package #:datetime-protocol)
