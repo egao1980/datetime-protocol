@@ -117,6 +117,45 @@ so the conversion is exact)."
     (format stream "~4,'0d-~2,'0d-~2,'0d AH" (islamic-date-year o) (islamic-date-month o)
             (islamic-date-day o))))
 
+(defun islamic-date-in-gregorian-year (g-year month day)
+  "First tabular Islamic MONTH/DAY whose Gregorian date falls in G-YEAR.
+Civil/tabular only — moon-sighting jurisdictions may differ by a day. When a
+Gregorian year contains two such dates (Islamic year shorter), returns the
+earlier. NIL if none (should not happen for valid month/day)."
+  (let* ((start (fixed-from-date +gregorian+ g-year 1 1))
+         (end (fixed-from-date +gregorian+ g-year 12 31)))
+    (multiple-value-bind (iy) (islamic-date-from-fixed start)
+      (loop for y from (cl:1- iy) to (cl:+ iy 2)
+            for rd = (fixed-from-islamic-date y month day)
+            when (cl:<= start rd end)
+              return (date-from-rd rd)))))
+
+(defun islamic-dates-in-gregorian-year (g-year month day)
+  "All tabular Islamic MONTH/DAY occurrences in Gregorian G-YEAR (0–2)."
+  (let* ((start (fixed-from-date +gregorian+ g-year 1 1))
+         (end (fixed-from-date +gregorian+ g-year 12 31)))
+    (multiple-value-bind (iy) (islamic-date-from-fixed start)
+      (loop for y from (cl:1- iy) to (cl:+ iy 2)
+            for rd = (fixed-from-islamic-date y month day)
+            when (cl:<= start rd end)
+              collect (date-from-rd rd)))))
+
+(defun eid-al-fitr (g-year)
+  "1 Shawwal (tabular) in Gregorian G-YEAR."
+  (islamic-date-in-gregorian-year g-year 10 1))
+
+(defun eid-al-adha (g-year)
+  "10 Dhu al-Hijjah (tabular) in Gregorian G-YEAR."
+  (islamic-date-in-gregorian-year g-year 12 10))
+
+(defun islamic-new-year-date (g-year)
+  "1 Muharram (tabular) in Gregorian G-YEAR."
+  (islamic-date-in-gregorian-year g-year 1 1))
+
+(defun mawlid-date (g-year)
+  "12 Rabiʿ al-awwal (tabular) — Mawlid/Milad in Gregorian G-YEAR."
+  (islamic-date-in-gregorian-year g-year 3 12))
+
 ;;; --- Hebrew calendar --------------------------------------------------------
 ;;;
 ;;; The traditional arithmetic (molad-based) Hebrew calendar: leap years

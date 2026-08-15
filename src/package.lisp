@@ -224,6 +224,12 @@
    #:islamic-date-from-date
    #:islamic-leap-year-p
    #:islamic-year-length
+   #:islamic-date-in-gregorian-year
+   #:islamic-dates-in-gregorian-year
+   #:eid-al-fitr
+   #:eid-al-adha
+   #:islamic-new-year-date
+   #:mawlid-date
 
    ;; astronomy (Meeus) / locations / Chinese lunisolar
    #:astro-location
