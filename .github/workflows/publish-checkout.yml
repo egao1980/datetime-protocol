@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        system: [datetime-protocol]
+        system: [datetime-protocol, datetime-protocol/calendars]
     runs-on: ubuntu-latest
     permissions:
       contents: read
