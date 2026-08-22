@@ -89,3 +89,63 @@
     (ok (= 1446 (islamic-date-year id)))
     (ok (= 1 (islamic-date-month id)))
     (ok (= 1 (islamic-date-day id)))))
+
+;;; --- Astronomy / Chinese (location-aware) --------------------------------
+
+(deftest japan-equinoxes-tokyo
+  "Cabinet 春分日/秋分日 — civil date at Tokyo/JST."
+  (ok (value= (make-date 2024 3 20) (spring-equinox-date 2024)))
+  (ok (value= (make-date 2024 9 22) (autumn-equinox-date 2024)))
+  (ok (value= (make-date 2026 3 20) (spring-equinox-date 2026)))
+  (ok (value= (make-date 2026 9 23) (autumn-equinox-date 2026)))
+  (ok (value= (make-date 2027 3 21) (spring-equinox-date 2027))))
+
+(deftest qingming-beijing
+  (ok (value= (make-date 2024 4 4) (qingming-date 2024)))
+  (ok (value= (make-date 2025 4 4) (qingming-date 2025)))
+  (ok (value= (make-date 2026 4 5) (qingming-date 2026))))
+
+(deftest chinese-new-year-beijing
+  (ok (value= (make-date 2024 2 10) (chinese-new-year-date 2024)))
+  (ok (value= (make-date 2025 1 29) (chinese-new-year-date 2025)))
+  (ok (value= (make-date 2026 2 17) (chinese-new-year-date 2026)))
+  (ok (value= (make-date 2024 2 9) (chinese-new-year-eve-date 2024)))
+  (ok (value= (make-date 2026 6 19) (duanwu-date 2026)))
+  (ok (value= (make-date 2026 9 25) (zhongqiu-date 2026))))
+
+(deftest sunrise-requires-lat-lon
+  "Sunrise/sunset differ by locus; polar night returns NIL."
+  (let ((rd (date-rd (make-date 2026 3 20))))
+    (ok (sunrise rd +tokyo+))
+    (ok (sunset rd +tokyo+))
+    (ok (sunrise rd +delhi+))
+    ;; Same UT day, different standard clocks at Delhi vs Ujjain (longitude).
+    (ng (= (sunrise rd +delhi+) (sunrise rd +ujjain+))))
+  (let ((arctic (location 78.2d0 15.6d0 :zone 1 :name "Longyearbyen")))
+    ;; Midwinter polar night — no sunrise.
+    (ok (null (sunrise (date-rd (make-date 2026 1 15)) arctic)))))
+
+(deftest jewish-shabbat-until-nightfall
+  "Melacha forbidden from Friday sunset until Saturday nightfall (Jerusalem)."
+  (let* ((fri (date-rd (make-date 2026 3 20))) ; Friday
+         (sat-noon-ut (midday-ut (1+ fri) +jerusalem+)))
+    (ok (jewish-melacha-forbidden-p sat-noon-ut fri))
+    ;; After Vilna nightfall Saturday — permitted again.
+    (multiple-value-bind (start end)
+        (jewish-shabbat-interval fri)
+      (declare (ignore start))
+      (ok end)
+      (ng (jewish-melacha-forbidden-p (+ end 0.01d0) fri)))))
+
+(deftest islamic-fast-until-maghrib
+  "Ramadan-style fast: forbidden from Fajr until Maghrib at Mecca."
+  (let* ((rd (date-rd (make-date 2026 3 20)))
+         (mid (midday-ut rd +mecca+)))
+    (ok (islamic-fasting-p mid rd))
+    (multiple-value-bind (fajr maghrib)
+        (islamic-fasting-interval rd)
+      (ok fajr)
+      (ok maghrib)
+      (ok (< fajr mid maghrib))
+      ;; After Maghrib — iftar; fasting window closed.
+      (ng (islamic-fasting-p (+ maghrib 0.01d0) rd)))))

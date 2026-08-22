@@ -19,12 +19,15 @@
 
 (defsystem "datetime-protocol/calendars"
   :version "0.1.0"
-  :description "Easter computus (Western/Orthodox), Hebrew, and Islamic calendars on top of datetime-protocol"
+  :description "Easter, Hebrew, Islamic, solar astronomy, and Chinese lunisolar calendars"
   :author "egao1980"
   :license "MIT"
   :depends-on ("datetime-protocol")
   :pathname "src"
-  :components ((:file "calendars")))
+  :serial t
+  :components ((:file "calendars")
+               (:file "astronomy")
+               (:file "chinese")))
 
 (defsystem "datetime-protocol/tests"
   :depends-on ("datetime-protocol" "datetime-protocol/calendars" "rove")
