@@ -9,14 +9,14 @@ on:
         default: ""
 
 env:
-  PACKAGER_TAG: "0.12.0"
+  PACKAGER_TAG: "0.16.0"
 
 jobs:
   publish:
     strategy:
       fail-fast: false
       matrix:
-        system: [datetime-protocol]
+        system: [datetime-protocol, datetime-protocol/calendars]
     runs-on: ubuntu-latest
     permissions:
       contents: read
