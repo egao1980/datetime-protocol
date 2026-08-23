@@ -59,6 +59,8 @@ Time zones work with just `+utc+`/fixed offsets out of the box; loading [`cl-sta
 (passover 5785)         ; => #<DATE 2025-04-13> (15 Nisan 5785)
 ```
 
+Conversion / festival gold (CPython, dateutil, pyluach, Kuwaiti JDN, 内閣府, HKO, IANA): `data/tests/chrono-gold.sexp`. Refresh: `uv run scripts/generate_chrono_gold.py`. See [`data/tests/CHRONO.md`](data/tests/CHRONO.md).
+
 ## License
 
 MIT

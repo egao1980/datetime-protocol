@@ -1,0 +1,6 @@
+(load "~/quicklisp/setup.lisp")
+(pushnew (truename "/Users/nikolaimatiushev/Projects/cl-workspace/") ql:*local-project-directories*)
+(ql:quickload '(:cl-stack-tzdata :datetime-protocol/tests) :silent t)
+(unless (rove:run :datetime-protocol/tests)
+  (uiop:quit 1))
+(uiop:quit 0)
