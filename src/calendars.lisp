@@ -283,10 +283,15 @@ Adar-I/Adar-II split), 7 in a regular year."
       (3 (if (member (%hebrew-year-length year) '(355 385)) 30 29)) ; Kislev
       (4 29)  ; Tevet
       (5 30)  ; Shevat
-      (6 (if leap 30 29))  ; Adar-I (leap) or Adar (regular, 29 days)
-      (7 (if leap 29 30))  ; Adar-II (leap, 29) — unreachable in a regular year
-      (8 30) (9 29) (10 30) (11 29) (12 30) ; Nisan..Av
-      (13 29) ; Elul
+      (6 (if leap 30 29))  ; Adar-I (leap) or Adar (regular, 29)
+      (7 (if leap 29 30))  ; Adar-II (leap) or Nisan (regular)
+      ;; Regular: 8 Iyar 29 … 12 Elul 29. Leap: 8 Nisan 30 … 13 Elul 29.
+      (8 (if leap 30 29))
+      (9 (if leap 29 30))
+      (10 (if leap 30 29))
+      (11 (if leap 29 30))
+      (12 (if leap 30 29))
+      (13 29) ; Elul (leap only)
       (t (error 'datetime-arithmetic-error :message (format nil "no Hebrew month ~d" month))))))
 
 (defun %hebrew-days-before-month (year month)

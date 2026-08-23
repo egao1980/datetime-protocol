@@ -26,6 +26,7 @@
  (lambda ()
    (cl-repo:ensure-system-dependencies "datetime-protocol"
      :also-tests t
+     :with '("cl-stack-tzdata")
      :sources '(("rove" :ql)))
    (cl-repo:ensure-system-dependencies "datetime-protocol/calendars"
      :also-tests t
