@@ -1,5 +1,5 @@
 (defsystem "datetime-protocol"
-  :version "0.1.0"
+  :version "0.1.1"
   :description "CLOS datetime protocol for cl-stack (instant/duration/period, chronology, clock, timezone, ISO 8601/RFC 3339/RFC 7231 parsing)"
   :author "egao1980"
   :license "MIT"
@@ -18,7 +18,7 @@
   :in-order-to ((test-op (test-op "datetime-protocol/tests"))))
 
 (defsystem "datetime-protocol/calendars"
-  :version "0.1.0"
+  :version "0.1.1"
   :description "Easter, Hebrew, Islamic, solar astronomy, and Chinese lunisolar calendars"
   :author "egao1980"
   :license "MIT"
