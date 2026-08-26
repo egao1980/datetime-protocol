@@ -4,7 +4,7 @@
   :author "egao1980"
   :license "MIT"
   :depends-on ()
-  :properties (:cl-repo (:ci (:with ("cl-stack-tzdata") :sources (("rove" :ql)) :load-before-test ("cl-stack-tzdata"))))
+  :properties (:cl-repo (:ci (:with ("cl-stack-tzdata") :load-before-test ("cl-stack-tzdata"))))
   :serial t
   :pathname "src"
   :components ((:file "package")
