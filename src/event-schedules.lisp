@@ -113,7 +113,7 @@ standard-zone RD moment or NIL (polar night / polar day)."))
 
 (defun %hebrew-in-gregorian (g-year festival)
   "GREGORIAN year → DATE of Hebrew FESTIVAL (Hebrew year) that falls in it."
-  (loop for hy from (cl:- g-year 3762) to (cl:- g-year 3760)
+  (loop for hy from (cl:+ g-year 3760) to (cl:+ g-year 3762)
         for d = (funcall festival hy)
         when (and d (cl:= (date-year d) g-year))
           return d))

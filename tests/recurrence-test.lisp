@@ -16,7 +16,7 @@
     (ok (value= (%d 2024 1 1) (first got)))
     (ok (value= (%d 2024 1 5) (car (last got))))
     (ok (occurrence-p s (%d 2024 1 3)))
-    (ng (occurrence-p s (%d 2024 1 6)))))
+    (ng (occurrence-p s (%d 2023 12 31)))))
 
 (deftest weekly-mo-we-interval-2
   "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE — DTSTART included (RFC, not dateutil)."
@@ -52,10 +52,12 @@
 
 (deftest yearly-byday-is-nth-of-year
   "FREQ=YEARLY;BYDAY=2FR = 2nd Friday of the year (errata 3779), not of DTSTART's month."
-  (let ((s (parse-rrule "FREQ=YEARLY;BYDAY=2FR" :from (%d 2024 8 1))))
-    (ok (value= (%d 2024 1 12) (next-occurrence s (%d 2024 1 1) :inclusive t)))
-    (ok (occurrence-p s (%d 2024 1 12)))
-    (ng (occurrence-p s (%d 2024 8 9)))))
+  (let ((from-jan (parse-rrule "FREQ=YEARLY;BYDAY=2FR" :from (%d 2024 1 1)))
+        (from-aug (parse-rrule "FREQ=YEARLY;BYDAY=2FR" :from (%d 2024 8 1))))
+    (ok (value= (%d 2024 1 12) (next-occurrence from-jan (%d 2024 1 1) :inclusive t)))
+    (ok (occurrence-p from-jan (%d 2024 1 12)))
+    (ng (occurrence-p from-aug (%d 2024 8 9)))
+    (ok (value= (%d 2025 1 10) (next-occurrence from-aug (%d 2024 8 1) :inclusive t)))))
 
 (deftest parse-rrule-roundtrip
   (let* ((text "FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,WE")
@@ -136,6 +138,11 @@
 
 (deftest unknown-event-signals
   (ok (signals (event-schedule t :not-a-real-event) 'unknown-event)))
+
+(deftest predicate-schedule-next
+  (let ((s (predicate-schedule (lambda (d) (cl:= 5 (date-day-of-week d))))))
+    (ok (value= (%d 2024 1 5) (next-occurrence s (%d 2024 1 1) :inclusive t)))
+    (ok (occurrence-p s (%d 2024 1 5)))))
 
 ;;; --- solar / ritual ------------------------------------------------------
 
