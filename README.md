@@ -61,6 +61,31 @@ Time zones work with just `+utc+`/fixed offsets out of the box; loading [`cl-sta
 
 Conversion / festival gold (CPython, dateutil, pyluach, Kuwaiti JDN, 内閣府, HKO, IANA): `data/tests/chrono-gold.sexp`. Refresh: `uv run scripts/generate_chrono_gold.py`. See [`data/tests/CHRONO.md`](data/tests/CHRONO.md).
 
+## Recurrence / events
+
+Date-level `schedule` protocol: `occurrence-p`, `map-occurrences` (half-open `[from, to)`), `next-occurrence`, `previous-occurrence`. RFC 5545 RECUR is interchange (`parse-rrule` / `print-rrule`), not the DX. HOURLY / BYHOUR / BYYEARDAY / BYWEEKNO signal `unsupported-recurrence`. COUNT xor UNTIL. `FREQ=YEARLY;BYDAY=2FR` is the 2nd Friday of the **year** ([errata 3779](https://www.rfc-editor.org/errata/eid3779)).
+
+```lisp
+(weekly :on '(:monday :wednesday) :every 2 :from d0)
+(monthly :on '(:nth -1 :friday) :from d0 :count 12)
+(yearly :on '(:month 11 :weekday :thursday :nth 4))   ; Thanksgiving
+(parse-rrule "FREQ=WEEKLY;BYDAY=MO,WE;INTERVAL=2" :from dtstart)
+(offset-schedule (event-schedule :computus :easter-western) -2)  ; Good Friday
+```
+
+`event-schedule` is the extension point. Specialize it, or `register-event`.
+
+```lisp
+(event-schedule +tokyo+ :sunset)
+(event-schedule +tokyo+ :dawn :depression 12d0)       ; nautical
+(event-schedule +jerusalem+ :jewish-sunset)
+(event-schedule +mecca+ :islamic-fajr)
+(event-schedule :computus :easter-western)
+(next-occurrence (event-schedule +tokyo+ :sunrise) (today))
+```
+
+Solar events yield `moment`s (standard zone of the location); polar night is skipped (`occurrence-p` false). Holiday / business-day / weekend methods live on the calendar that owns the law (`cl-stack-calendars`).
+
 ## License
 
 MIT

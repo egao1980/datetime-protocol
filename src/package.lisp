@@ -286,5 +286,21 @@
    #:chinese-new-year-rd
    #:chinese-lunar-date
    #:duanwu-date
-   #:zhongqiu-date))
+   #:zhongqiu-date
+
+   ;; Recurrence / event schedules
+   #:schedule #:schedulep
+   #:occurrence-p #:map-occurrences
+   #:next-occurrence #:previous-occurrence
+   #:schedule-origin #:occurrence-date #:occurrences #:do-occurrences
+   #:event-schedule #:register-event
+   #:unknown-event #:unknown-event-source #:unknown-event-event
+   #:unbounded-schedule #:unbounded-schedule-schedule
+   #:unsupported-recurrence
+   #:recurrence #:recurrencep
+   #:daily #:weekly #:monthly #:yearly
+   #:date-set #:schedule-union #:schedule-except
+   #:predicate-schedule #:function-schedule #:offset-schedule
+   #:parse-rrule #:print-rrule
+   #:use-count #:use-until))
 (in-package #:datetime-protocol)
