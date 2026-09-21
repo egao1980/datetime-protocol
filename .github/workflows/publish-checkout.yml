@@ -16,13 +16,8 @@ on:
 
 jobs:
   publish:
-    strategy:
-      fail-fast: false
-      matrix:
-        system: [datetime-protocol, datetime-protocol/calendars]
     uses: egao1980/cl-repository/.github/workflows/publish-source.yml@main
     with:
-      system: ${{ matrix.system }}
       version: ${{ inputs.version }}
       packager-version: ${{ inputs.packager_version }}
     permissions:
