@@ -193,6 +193,7 @@
    #:parse-rfc3339
    #:parse-http-date
    #:parse-moment
+   #:parse-time-range
 
    ;; calendars (base package also hosts the reexports for /calendars subsystem)
    #:easter-western

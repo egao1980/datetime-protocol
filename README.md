@@ -4,7 +4,7 @@ Lispy **CLOS** date/time protocol for [cl-stack](https://github.com/egao1980/cl-
 
 | System | Nick | Role |
 |--------|------|------|
-| `datetime-protocol` | `stack-datetime` | `instant`/`duration`/`period`/`date`/`moment`/`zoned-moment`, chronology, clock, time zone, ISO 8601/RFC 3339/RFC 7231 |
+| `datetime-protocol` | `stack-datetime` | `instant`/`duration`/`period`/`date`/`moment`/`zoned-moment`, chronology, clock, time zone, ISO 8601/RFC 3339/RFC 7231, `parse-time-range` |
 | `datetime-protocol/calendars` | — | Easter, Hebrew, Islamic; solar astronomy; Chinese lunisolar; Jewish/Muslim sunrise–sunset ritual times |
 
 **Not here:** IANA zone data itself → [`cl-stack-tzdata`](https://github.com/egao1980/cl-stack-tzdata) (soft dependency, loaded automatically when present).
@@ -85,6 +85,13 @@ Date-level `schedule` protocol: `occurrence-p`, `map-occurrences` (half-open `[f
 ```
 
 Solar events yield `moment`s (standard zone of the location); polar night is skipped (`occurrence-p` false). Holiday / business-day / weekend methods live on the calendar that owns the law (`cl-stack-calendars`).
+
+## Relative ranges
+
+`(parse-time-range string &key now zone)` → `(values interval remainder matched-p)`.
+English + ISO. `"yesterday evening, budget"` → `[20:00 yesterday, 21:00)` leftover `"budget"`.
+Month-only (`July`, `in July`) is a calendar-month span; a month after `now` rolls back a year.
+Bare `"may"` is not stolen from the verb — use `in May` / `last May`.
 
 ## License
 
