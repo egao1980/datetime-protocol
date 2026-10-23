@@ -17,27 +17,9 @@ jobs:
     uses: egao1980/cl-repository/.github/workflows/test-system.yml@main
 
   test-ecl:
-    runs-on: ubuntu-latest
+    uses: egao1980/cl-repository/.github/workflows/test-system-impl.yml@main
     permissions:
       contents: read
       packages: read
-    timeout-minutes: 90
-    steps:
-      - uses: actions/checkout@v5
-      - uses: egao1980/cl-repository/.github/actions/setup-lisp@main
-        with:
-          install-sbcl: "false"
-          roswell-version: ${{ env.ROSWELL_VERSION }}
-      - name: Install ECL
-        shell: bash
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends build-essential libffi-dev libgc-dev libgmp-dev
-          ros install ecl
-          ros use ecl
-      - uses: egao1980/cl-repository/.github/actions/ci@main
-        with:
-          phase: install
-      - uses: egao1980/cl-repository/.github/actions/ci@main
-        with:
-          phase: test
+    with:
+      lisp: ecl
