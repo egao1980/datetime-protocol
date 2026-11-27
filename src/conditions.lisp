@@ -44,3 +44,16 @@
   (:report (lambda (c s)
              (format s "local time ~a falls in a zone gap — pass :on-gap :earlier/:later"
                      (nonexistent-local-time-moment c)))))
+
+(define-condition invalid-lunisolar-date (datetime-error)
+  ((year :initarg :year :reader invalid-lunisolar-date-year)
+   (month :initarg :month :reader invalid-lunisolar-date-month)
+   (day :initarg :day :reader invalid-lunisolar-date-day)
+   (leap :initarg :leap :initform nil :reader invalid-lunisolar-date-leap))
+  (:report (lambda (c s)
+             (format s "no lunisolar date ~d/~:[~;leap ~]~d/~d~@[: ~a~]"
+                     (invalid-lunisolar-date-year c)
+                     (invalid-lunisolar-date-leap c)
+                     (invalid-lunisolar-date-month c)
+                     (invalid-lunisolar-date-day c)
+                     (datetime-error-message c)))))

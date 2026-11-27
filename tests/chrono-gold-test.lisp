@@ -133,11 +133,11 @@
     (:zhongqiu (zhongqiu-date year))))
 
 ;;; Civil 农历 uses 北京时间 from 1929. Before that, HKO/紫金山 used local
-;;; apparent/mean solar time — Meeus + CST can land one day off.
-;;; 2033 中秋: 闰十一月 year; a 中气 sits on a Beijing midnight and we skip
-;;; an extra lunation (HKO 8/15 = 2033-09-08, we get 10-07).
+;;; apparent/mean solar time — Meeus + CST can land one day off. Every month
+;;; start (not just festivals) is checked in lunisolar-gold-test.
 (defparameter *hko-allow*
-  '((2033 :zhongqiu)))
+  ;; Empty: 2033 中秋 was a leap-month bug (cl-stack-calendars#38), now fixed.
+  '())
 
 (deftest chrono-gold-hko-chinese
   (let ((rows (getf (chrono-block "hko" :chinese-festival) :rows))

@@ -21,4 +21,4 @@ Tests lock against the frozen sexp — CI does not run Python.
 
 `java.time` is the same proleptic Gregorian/ISO chronology as CPython — not a second source. It has no Hebrew / Islamic civil / Chinese lunisolar.
 
-Asserted HKO range: **1929–2100** (CST). Pre-1929 紫金山/HKO used Beijing local solar time. Known skip: **2033 中秋** (闰十一月; 中气 on a Beijing midnight — one lunation off).
+Asserted HKO range: **1929–2100** (CST). Pre-1929 紫金山/HKO tables predate modern ephemerides. No known skips: 2033 中秋 was a leap-month bug (cl-stack-calendars#38). Every month start (Chinese, Korean, Vietnamese) is locked in [`LUNISOLAR.md`](LUNISOLAR.md).

@@ -59,6 +59,27 @@ Time zones work with just `+utc+`/fixed offsets out of the box; loading [`cl-sta
 (passover 5785)         ; => #<DATE 2025-04-13> (15 Nisan 5785)
 ```
 
+### Lunisolar (Chinese, Korean, Vietnamese)
+
+One engine, GB/T 33661-2017 rules; the calendars differ only in the meridian of the civil day, passed as `:zone`:
+
+```lisp
+(chinese-new-year-date 2027)                                 ; => 2027-02-06 (UTC+8)
+(chinese-new-year-date 2027 :zone +korea-lunisolar-zone+)    ; => 2027-02-07 (설날, KST)
+(chinese-new-year-date 2030 :zone +vietnam-lunisolar-zone+)  ; => 2030-02-02 (Tết, UTC+7)
+(zhongqiu-date 2033)                                         ; => 2033-09-08
+(chinese-lunar-date 2033 11 1 :leap t)                       ; => 2033-12-22 (闰十一月)
+(lunisolar-from-fixed (date-rd (make-date 2024 2 9)))        ; => 2023 12 NIL 30
+```
+
+| Zone | Meridian | Fitted to |
+|------|----------|-----------|
+| `+china-lunisolar-zone+` (default) | UTC+8 | [HKO](https://www.hko.gov.hk/en/gts/time/conversion.htm), every month 1929–2100 |
+| `+korea-lunisolar-zone+` | UTC+8 to 1911, UTC+9 from 1912 | [KASI](https://astro.kasi.re.kr/life/pageView/8), every month 1900–2050 |
+| `+vietnam-lunisolar-zone+` | UTC+8 to 1967, UTC+7 from 1968 (Decision 121-CP) | Hồ Ngọc Đức tables, every month 1929–2100 |
+
+`:zone` also takes hours (`9`) or an `astro-location`; `make-lunisolar-zone` builds a historical schedule. `fixed-from-lunisolar` signals `invalid-lunisolar-date` (restarts `use-value`, and `continue` for a missing leap month). Month-start gold: [`data/tests/LUNISOLAR.md`](data/tests/LUNISOLAR.md).
+
 Conversion / festival gold (CPython, dateutil, pyluach, Kuwaiti JDN, 内閣府, HKO, IANA): `data/tests/chrono-gold.sexp`. Refresh: `uv run scripts/generate_chrono_gold.py`. See [`data/tests/CHRONO.md`](data/tests/CHRONO.md).
 
 ## Recurrence / events

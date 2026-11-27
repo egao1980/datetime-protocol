@@ -20,6 +20,11 @@
    #:ambiguous-local-time-later-offset
    #:nonexistent-local-time
    #:nonexistent-local-time-moment
+   #:invalid-lunisolar-date
+   #:invalid-lunisolar-date-year
+   #:invalid-lunisolar-date-month
+   #:invalid-lunisolar-date-day
+   #:invalid-lunisolar-date-leap
 
    ;; types
    #:instant
@@ -244,6 +249,8 @@
    #:location-name
    #:+beijing+
    #:+tokyo+
+   #:+seoul+
+   #:+hanoi+
    #:+delhi+
    #:+ujjain+
    #:+jerusalem+
@@ -288,6 +295,18 @@
    #:chinese-lunar-date
    #:duanwu-date
    #:zhongqiu-date
+   #:chinese-new-year-on-or-before-rd
+   #:lunisolar-from-fixed
+   #:fixed-from-lunisolar
+   #:lunisolar-zone
+   #:lunisolar-zone-p
+   #:make-lunisolar-zone
+   #:lunisolar-zone-name
+   #:lunisolar-zone-periods
+   #:lunisolar-zone-offset
+   #:+china-lunisolar-zone+
+   #:+korea-lunisolar-zone+
+   #:+vietnam-lunisolar-zone+
 
    ;; Recurrence / event schedules
    #:schedule #:schedulep
