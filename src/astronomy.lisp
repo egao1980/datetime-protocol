@@ -72,6 +72,16 @@ calendars cite a fixed reference zone."
   (location 35.6895d0 139.6917d0 :elevation 40d0 :zone 9 :name "Tokyo")
   "Tokyo — Japan 春分日/秋分日 civil date (JST).")
 
+(defparameter +seoul+
+  (location 37.5665d0 126.9780d0 :elevation 38d0 :zone 9 :name "Seoul")
+  "Seoul — Korean civil date (KST, UTC+9). Lunar 음력 dates need the
+historical zone: use +KOREA-LUNISOLAR-ZONE+.")
+
+(defparameter +hanoi+
+  (location 21.0285d0 105.8542d0 :elevation 16d0 :zone 7 :name "Hanoi")
+  "Hanoi — Vietnamese civil date (ICT, UTC+7). Âm lịch dates before 1968
+used UTC+8: use +VIETNAM-LUNISOLAR-ZONE+.")
+
 (defparameter +delhi+
   (location 28.6139d0 77.2090d0 :elevation 216d0 :zone 5.5d0 :name "New Delhi")
   "New Delhi — India gazetted / sunrise-bound Hindu festivals (IST).")
