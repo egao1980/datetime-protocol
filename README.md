@@ -5,7 +5,7 @@ Lispy **CLOS** date/time protocol for [cl-stack](https://github.com/egao1980/cl-
 | System | Nick | Role |
 |--------|------|------|
 | `datetime-protocol` | `stack-datetime` | `instant`/`duration`/`period`/`date`/`moment`/`zoned-moment`, chronology, clock, time zone, ISO 8601/RFC 3339/RFC 7231, `parse-time-range` |
-| `datetime-protocol/calendars` | — | Easter, Hebrew, Islamic; solar astronomy; Chinese lunisolar; Jewish/Muslim sunrise–sunset ritual times |
+| `datetime-protocol/calendars` | — | Easter, Hebrew, Islamic, Solar Hijri (Persian); solar astronomy; Chinese lunisolar; Jewish/Muslim sunrise–sunset ritual times |
 
 **Not here:** IANA zone data itself → [`cl-stack-tzdata`](https://github.com/egao1980/cl-stack-tzdata) (soft dependency, loaded automatically when present).
 
@@ -79,6 +79,20 @@ One engine, GB/T 33661-2017 rules; the calendars differ only in the meridian of 
 | `+vietnam-lunisolar-zone+` | UTC+8 to 1967, UTC+7 from 1968 (Decision 121-CP) | Hồ Ngọc Đức tables, every month 1929–2100 |
 
 `:zone` also takes hours (`9`) or an `astro-location`; `make-lunisolar-zone` builds a historical schedule. `fixed-from-lunisolar` signals `invalid-lunisolar-date` (restarts `use-value`, and `continue` for a missing leap month). Month-start gold: [`data/tests/LUNISOLAR.md`](data/tests/LUNISOLAR.md).
+
+### Solar Hijri (Persian)
+
+The official calendar of Iran, astronomical: 1 Farvardin is the day of the March equinox when it falls before noon in Tehran, else the next day (months of 31 × 6, 30 × 5, then Esfand 29 or 30).
+
+```lisp
+(persian-new-year-date 2025)              ; => 2025-03-21 (1 Farvardin 1404)
+(fixed-from-persian 1403 12 29)           ; => RD of 2025-03-19
+(persian-from-fixed (date-rd (make-date 2024 3 20)))  ; => 1403 1 1
+(persian-leap-year-p 1403)                ; => T
+(persian-dates-in-gregorian-year 2024 12 29)  ; => (2024-03-19)
+```
+
+Gold: every 1 Farvardin 1206–1498 from the leap-year table of the Calendar Center, Institute of Geophysics, University of Tehran (`data/tests/persian-gold.sexp`, `uv run --no-project --with pypdf python -I scripts/generate_persian_gold.py`).
 
 Conversion / festival gold (CPython, dateutil, pyluach, Kuwaiti JDN, 内閣府, HKO, IANA): `data/tests/chrono-gold.sexp`. Refresh: `uv run scripts/generate_chrono_gold.py`. See [`data/tests/CHRONO.md`](data/tests/CHRONO.md).
 
