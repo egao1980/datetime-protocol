@@ -1,5 +1,5 @@
 (defsystem "datetime-protocol"
-  :version "0.3.0"
+  :version "0.4.0"
   :description "CLOS datetime protocol for cl-stack (instant/duration/period, chronology, clock, timezone, ISO 8601/RFC 3339/RFC 7231, relative time ranges)"
   :author "egao1980"
   :license "MIT"
@@ -21,8 +21,8 @@
   :in-order-to ((test-op (test-op "datetime-protocol/tests"))))
 
 (defsystem "datetime-protocol/calendars"
-  :version "0.3.0"
-  :description "Easter, Hebrew, Islamic, Solar Hijri (Persian, astronomical), solar astronomy, and East Asian lunisolar (Chinese, Korean, Vietnamese) calendars"
+  :version "0.4.0"
+  :description "Easter, Hebrew, Islamic, Solar Hijri (Persian, astronomical), Ethiopian, solar astronomy, and East Asian lunisolar (Chinese, Korean, Vietnamese) calendars"
   :author "egao1980"
   :license "MIT"
   :depends-on ("datetime-protocol")
@@ -31,6 +31,7 @@
   :components ((:file "calendars")
                (:file "astronomy")
                (:file "persian")
+               (:file "ethiopic")
                (:file "chinese")
                (:file "event-schedules")))
 
@@ -46,6 +47,7 @@
                (:file "calendars-test")
                (:file "chrono-gold-test")
                (:file "lunisolar-gold-test")
+               (:file "ethiopic-gold-test")
                (:file "persian-gold-test")
                (:file "recurrence-test")
                (:file "relative-test"))
