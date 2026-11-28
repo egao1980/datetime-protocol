@@ -322,5 +322,5 @@
    #:date-set #:schedule-union #:schedule-except
    #:predicate-schedule #:function-schedule #:offset-schedule
    #:parse-rrule #:print-rrule
-   #:use-count #:use-until #:+tehran+ #:*persian-reference-location* #:persian-new-year-on-or-before #:persian-leap-year-p #:persian-month-length #:fixed-from-persian #:persian-from-fixed #:persian-new-year-date #:persian-dates-in-gregorian-year))
+   #:use-count #:use-until #:+tehran+ #:*persian-reference-location* #:persian-new-year-on-or-before #:persian-leap-year-p #:persian-month-length #:fixed-from-persian #:persian-from-fixed #:persian-new-year-date #:persian-dates-in-gregorian-year #:ethiopic-leap-year-p #:ethiopic-month-length #:fixed-from-ethiopic #:ethiopic-from-fixed #:ethiopic-dates-in-gregorian-year #:ethiopic-new-year-date #:+ethiopic-epoch-rd+))
 (in-package #:datetime-protocol)

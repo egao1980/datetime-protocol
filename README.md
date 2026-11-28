@@ -94,6 +94,19 @@ The official calendar of Iran, astronomical: 1 Farvardin is the day of the March
 
 Gold: every 1 Farvardin 1206–1498 from the leap-year table of the Calendar Center, Institute of Geophysics, University of Tehran (`data/tests/persian-gold.sexp`, `uv run --no-project --with pypdf python -I scripts/generate_persian_gold.py`).
 
+### Ethiopian (Ethiopic)
+
+Twelve months of 30 days and Pagume of 5 days, 6 when the Ethiopian year mod 4 is 3, so 1 Meskerem (Enkutatash) is 12 September in the Gregorian year before a leap year and 11 September otherwise (1900–2099).
+
+```lisp
+(ethiopic-new-year-date 2023)                    ; => 2023-09-12 (1 Meskerem 2016)
+(ethiopic-dates-in-gregorian-year 2024 1 17)      ; => (2024-09-27), Meskel
+(ethiopic-from-fixed (date-rd (make-date 2024 1 20)))  ; => 2016 5 11 (Timkat)
+(ethiopic-leap-year-p 2015)                      ; => T (Pagume 6 = 2023-09-11)
+```
+
+Gold: every 1 Meskerem 1900–2100 EC, chained from the rule and anchored at the dates the Ethiopian News Agency reported for 2016 and 2017 EC (`data/tests/ethiopic-gold.sexp`, `uv run --no-project --with convertdate==2.4.0 python -I scripts/generate_ethiopic_gold.py`; convertdate's Coptic calendar as a secondary check).
+
 Conversion / festival gold (CPython, dateutil, pyluach, Kuwaiti JDN, 内閣府, HKO, IANA): `data/tests/chrono-gold.sexp`. Refresh: `uv run scripts/generate_chrono_gold.py`. See [`data/tests/CHRONO.md`](data/tests/CHRONO.md).
 
 ## Recurrence / events
